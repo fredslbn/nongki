@@ -16,6 +16,13 @@ jobs:
     uses: ./.github/workflows/build-xiaomi-12-lite-lineageos23-a16.yml
     secrets: inherit
 
+  build-pocom3-a13:
+    name: "Build POCO M3 (A13)"
+    strategy:
+      fail-fast: true
+    uses: ./.github/workflows/build-pocom3-a13.yml
+    secrets: inherit
+  
   build-poco-x5-5g-lineageos23-a16:
     name: "Build POCO X5 5G (LineageOS 23.2 A16)"
     strategy:
