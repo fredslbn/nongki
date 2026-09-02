@@ -9,7 +9,7 @@ env:
   DEVICE_NAME : "poco_m3"
   DEVICE_CODENAME : "citrus"
 
-  CUSTOM_CMDS : "CROSS_COMPILE=aarch64-linux-gnu- CLANG_TRIPLE=aarch64-linux-gnu-"
+  CUSTOM_CMDS : "CLANG_TRIPLE=aarch64-linux-gnu-"
   EXTRA_CMDS : "LD=ld.lld LLVM=1 LLVM_IAS=1"
 
   KERNEL_SOURCE : "https://github.com/fredslbn/kernel_chime.git"
@@ -25,7 +25,7 @@ env:
   GCC_32_BRANCH : "arm32"
 
   DEFCONFIG_SOURCE: ""
-  DEFCONFIG_NAME : "vendor/bengal-perf_defconfig"
+  DEFCONFIG_NAME : "vendor/chime_defconfig"
   DEFCONFIG_ORIGIN_IMAGE: ""
   DEFCONFIG_FROM_BOOT: false
 
