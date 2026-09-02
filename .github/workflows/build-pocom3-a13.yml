@@ -124,11 +124,11 @@ jobs:
           # Only ${{ env.DEVICE_NAME }} use it.
           cd $GITHUB_WORKSPACE/device_kernel
 
-          cp /tmp/Patches/Patch/remove_modversion_check.patch ./
-          cp /tmp/Patches/Patch/add_automatic_dtbo_generation.patch ./
+          #cp /tmp/Patches/Patch/remove_modversion_check.patch ./
+          #cp /tmp/Patches/Patch/add_automatic_dtbo_generation.patch ./
 
-          patch -p1 < remove_modversion_check.patch || true
-          patch -p1 < add_automatic_dtbo_generation.patch || true
+          #patch -p1 < remove_modversion_check.patch || true
+          #patch -p1 < add_automatic_dtbo_generation.patch || true
 
       - name: 🧰 Patch Kernel of Re:Kernel
         uses: ./.github/workflows/patch-rekernel
