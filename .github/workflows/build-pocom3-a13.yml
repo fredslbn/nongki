@@ -10,7 +10,7 @@ env:
   DEVICE_CODENAME : "citrus"
 
   CUSTOM_CMDS : "CLANG_TRIPLE=aarch64-linux-gnu-"
-  EXTRA_CMDS : "LLVM=1"
+  EXTRA_CMDS : "LD=ld.lld LLVM=1 LLVM_IAS=1"
 
   KERNEL_SOURCE : "https://github.com/fredslbn/kernel_chime.git"
   KERNEL_BRANCH : "main"
@@ -35,11 +35,11 @@ env:
   KERNELSU_AUTO_GET : "true"
   KERNELSU_AUTO_FORK : "xxksu" # xxksu, rsuntk , next, resukisu and sukisu
 
-  SUSFS_ENABLE : true
-  SUSFS_FIXED : true
+  SUSFS_ENABLE : false
+  SUSFS_FIXED : false
 
-  AK3_SOURCE : "https://github.com/frstprjkt/AnyKernel3.git"
-  AK3_BRANCH : "master"
+  AK3_SOURCE : "https://github.com/Dominium-Apum/AnyKernel3.git"
+  AK3_BRANCH : "main"
 
   BOOT_SOURCE : ""
 
