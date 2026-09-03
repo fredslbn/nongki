@@ -147,7 +147,7 @@ runs:
             elif [[ "${{ env.KERNELSU_AUTO_FORK }}" == "midori" ]]; then
                 KERNELSU_AUTHOR="midori01"
                 KERNELSU_NAME="KernelSU"
-                KERNELSU_ORIGIN_BRANCH="xx"
+                KERNELSU_ORIGIN_BRANCH="main"
                 if [[ "${{ env.SUSFS_ENABLE }}" == "true" ]]; then
                     KERNELSU_BRANCH="xx"
                 else
