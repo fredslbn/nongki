@@ -277,9 +277,10 @@ runs:
               patch -p1 < <(curl -sL "https://github.com/midori01/KernelSU/commit/xx.patch") || true
               echo "[+] xxksu susfs applied."
               
+              cd $GITHUB_WORKSPACE/device_kernel
               echo "CONFIG_KSU_THRONE_TRACKER_ALWAYS_THREADED=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
               echo "CONFIG_KSU_DEBUG=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-
+              echo "[+] applied CONFIG_KSU_THRONE_TRACKER_ALWAYS_THREADED."
               
             fi
             
