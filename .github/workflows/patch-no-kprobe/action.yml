@@ -38,6 +38,10 @@ runs:
             echo "CONFIG_KSU_HACK_ARM64_BRANCH_LINK=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "[+] applied CONFIG_KSU_HACK_ARM64_BRANCH_LINK."
 
+            echo "CONFIG_KPROBES=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_KPROBES_KSUD=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "[+] applied CONFIG_KPROBES."
+
           else
             echo "[-] please input a vaild option!"
             false
