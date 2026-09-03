@@ -38,8 +38,8 @@ env:
   SUSFS_ENABLE : true
   SUSFS_FIXED : true
 
-  AK3_SOURCE : "https://github.com/Dominium-Apum/AnyKernel3.git"
-  AK3_BRANCH : "main"
+  AK3_SOURCE : "https://github.com/osm0sis/AnyKernel3.git"
+  AK3_BRANCH : "master"
 
   BOOT_SOURCE : ""
 
@@ -68,7 +68,7 @@ env:
   NOMOUNT_ENABLE: "true" # if u need NoMount.
   VPNHIDE_ENABLE: "false"
 
-  HOOK_METHOD: "branchlink" # Manual hook method ->  syscall.
+  HOOK_METHOD: "tamper" # Manual hook method ->  syscall.
 
   KERNEL_PATCH: "false" # If your kernel version is <= 4.9, you have the option of enabling the patch to patch the kernel_write and kernel_read functions.
 
@@ -82,8 +82,8 @@ env:
 
   GENERATE_DTB: "true" # if u kernel need DTB , but cannot auto generate it. (Only Anykernel3).
   GENERATE_CHIP: "qcom" # only supported for qcom and mediatek.
-  CUSTOM_DTB: "false" # if u want use custom dtb file, and need set DTB_NAME.
-  DTB_NAME: "" # if u want use custom dtb file, please set it
+  CUSTOM_DTB: "true" # if u want use custom dtb file, and need set DTB_NAME.
+  DTB_NAME: "dtb.img" # if u want use custom dtb file, please set it
 
   BUILD_DEBUGGER: "false" # Output build errors.
   SKIP_PATCH: "false" # Ignore errors found in Patch Debugger.
