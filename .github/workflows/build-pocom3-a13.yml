@@ -36,10 +36,10 @@ env:
   KERNELSU_AUTO_FORK : "xxksu" # xxksu, rsuntk , next, resukisu and sukisu
 
   SUSFS_ENABLE : true
-  SUSFS_FIXED : false
+  SUSFS_FIXED : true
 
-  AK3_SOURCE : "https://github.com/Cilok-LAB/AK3-Surya.git"
-  AK3_BRANCH : "staging"
+  AK3_SOURCE : "https://github.com/frstprjkt/AnyKernel3.git"
+  AK3_BRANCH : "master"
 
   BOOT_SOURCE : ""
 
@@ -117,12 +117,7 @@ jobs:
         uses: ./.github/workflows/patch-susfs
 
       - name: 🔗 Patch for no-kprobe
-        uses: ./.github/workflows/patch-no-kprobe
-
-      - name: 🪛 Extra Kernel Options
-        run: |
-          # Only ${{ env.DEVICE_NAME }} use it.
-          cd $GITHUB_WORKSPACE/device_kernel
+        uses: ./.github/workflows/patch-no-kprobe      
 
       - name: 🧰 Patch Kernel of Re:Kernel
         uses: ./.github/workflows/patch-rekernel
