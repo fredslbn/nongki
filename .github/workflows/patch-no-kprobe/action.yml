@@ -29,9 +29,7 @@ runs:
             
             echo "# CONFIG_KPROBES is not set" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "# CONFIG_KSU_KPROBES_KSUD is not set" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_THRONE_TRACKER_ALWAYS_THREADED=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_DEBUG=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            
+                        
             echo "[+] applied CONFIG_KSU_TAMPER_SYSCALL_TABLE."
 
           elif [[ ${{ env.HOOK_METHOD }} == "branchlink" ]]; then
