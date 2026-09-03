@@ -25,12 +25,17 @@ runs:
             echo "[+] executed syscall hook successfully."
 
           elif [[ ${{ env.HOOK_METHOD }} == "tamper" ]]; then
-            echo "CONFIG_KSU_TAMPER_SYSCALL_TABLE=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            
-            echo "# CONFIG_KPROBES is not set" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            echo "# CONFIG_KSU_KPROBES_KSUD is not set" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_TAMPER_SYSCALL_TABLE=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}            
+            echo "CONFIG_KSU_KPROBES_KSUD=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KPROBES=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_FEATURE_SULOG=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_FEATURE_ADBROOT=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_LSM_SECURITY_HOOKS=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+        
+            #echo "# CONFIG_KPROBES is not set" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            #echo "# CONFIG_KSU_KPROBES_KSUD is not set" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
                         
-            echo "[+] applied CONFIG_KSU_TAMPER_SYSCALL_TABLE."
+            echo "[+] applied xxKSU TAMPER HOOK method."
 
           elif [[ ${{ env.HOOK_METHOD }} == "branchlink" ]]; then
             echo "CONFIG_KSU_HACK_ARM64_BRANCH_LINK=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
