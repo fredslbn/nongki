@@ -87,9 +87,14 @@ runs:
           #    echo "[+] try_umount susfs patch success."
           #  else
               patch -p1 < susfs_patch_to_${{ env.KERNEL_VERSION }}.patch || true
+              echo "[+] SuSFS Patch completed."
+                          
+              patch -p1 < <(curl -sL "https://raw.githubusercontent.com/midori01/gki_ksu_workflow/refs/heads/main/.github/patches/55_try_umount_for_susfs.patch") || true
+              echo "[+] try_umount susfs patch success."
+
           #  fi
 
-            echo "[+] SuSFS Patch completed."
+
 
           fi
 
