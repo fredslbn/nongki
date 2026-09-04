@@ -41,12 +41,7 @@ runs:
             echo "[+] applied xxKSU TAMPER HOOK method."
 
           elif [[ ${{ env.HOOK_METHOD }} == "branchlink" ]]; then
-            echo "CONFIG_KSU_HACK_ARM64_BRANCH_LINK=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            echo "[+] applied CONFIG_KSU_HACK_ARM64_BRANCH_LINK."
-
-            echo "CONFIG_KPROBES=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KSU_KPROBES_KSUD=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            echo "[+] applied CONFIG_KPROBES."
+            echo "[+] Branchlink configs applied from additional config."
 
           else
             echo "[-] please input a vaild option!"
