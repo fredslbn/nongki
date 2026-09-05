@@ -50,8 +50,8 @@ runs:
           fi
 
           if [[ -f "$IMAGE_DIR/dtb.img" ]]; then
-            cp -fp $IMAGE_DIR/dtb.img tmp/dtb
-            echo "Found dtb.img, converted dtb !"
+            cp -fp $IMAGE_DIR/dtb.img tmp
+            echo "Found dtb.img!"
 
           elif [ -f "$IMAGE_DIR/dtb" ]; then
             echo "Found DTB!"
