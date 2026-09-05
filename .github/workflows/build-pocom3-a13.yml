@@ -9,7 +9,7 @@ env:
   DEVICE_NAME : "poco_m3"
   DEVICE_CODENAME : "citrus"
 
-  CUSTOM_CMDS : "CROSS_COMPILE=aarch64-linux-gnu- CLANG_TRIPLE=aarch64-linux-gnu-"
+  CUSTOM_CMDS : "CROSS_COMPILE=aarch64-linux-gnu- CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi- CROSS_COMPILE_COMPAT=arm-linux-gnueabi-"
   EXTRA_CMDS : "LD=ld.lld LLVM=1 LLVM_IAS=1 INSTALL_MOD_STRIP=1"
 
   KERNEL_SOURCE : "https://github.com/fredslbn/kernel_chime.git"
@@ -18,8 +18,8 @@ env:
   # CLANG_SOURCE : "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman"
   # CLANG_BRANCH : ""
   
-  CLANG_SOURCE : "https://github.com/bachnxuan/aosp_clang_mirror/releases/download/clang-r563880c-13989888/clang-r563880c.tar.gz"
-  CLANG_BRANCH : "lineage-20.0"
+  CLANG_SOURCE : "https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.2/LLVM-22.1.2-Linux-X64.tar.xz"
+  CLANG_BRANCH : ""
 
   # GCC_GNU : false
   # GCC_64_SOURCE : "https://github.com/JackA1ltman/Google-GCC-Android-4.9.git"
