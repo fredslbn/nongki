@@ -1,0 +1,194 @@
+diff --git a/security/selinux/selinuxfs.c b/security/selinux/selinuxfs.c
+index 8dc8405a5c29..e0d95cada7e9 100644
+--- a/security/selinux/selinuxfs.c
++++ b/security/selinux/selinuxfs.c
+@@ -774,19 +783,27 @@ static ssize_t (*const write_op[])(struct file *, char
+	[SEL_CONTEXT] = sel_write_context,
+ };
+
++#if defined(CONFIG_KSU) && !defined(CONFIG_KPROBES)
++extern void ksu_sel_write_context(struct file **file, char **buf, size_t *size);
++#endif
++
+ static ssize_t selinux_transaction_write(struct file *file, const char __user *buf, size_t size, loff_t *pos)
+ {
+	ino_t ino = file_inode(file)->i_ino;
+	char *data;
+	ssize_t rv;
+
+	if (ino >= ARRAY_SIZE(write_op) || !write_op[ino])
+		return -EINVAL;
+
+	data = simple_transaction_get(file, buf, size);
+	if (IS_ERR(data))
+		return PTR_ERR(data);
+
++#if defined(CONFIG_KSU) && !defined(CONFIG_KPROBES)
++	ksu_sel_write_context(&file, &data, &size);
++#endif
++
+	rv = write_op[ino](file, data, size);
+	if (rv > 0) {
+		simple_transaction_set(file, rv);
+
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 8dc8405a5c29..e0d95cada7e9 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -6454,14 +6504,22 @@ static int selinux_getprocattr(struct task_struct *p,
+	return error;
+ }
+
++#ifdef CONFIG_KSU
++extern int ksu_hide_setprocattr(const char *name, void *value, size_t size);
++#endif
++
+ static int selinux_setprocattr(const char *name, void *value, size_t size)
+ {
+	struct task_security_struct *tsec;
+	struct cred *new;
+	u32 mysid = current_sid(), sid = 0, ptsid;
+	int error;
+	char *str = value;
+
++#ifdef CONFIG_KSU
++	ksu_hide_setprocattr(name, value, size);
++#endif
++
+	/*
+	 * Basic control over ability to set these attributes at all.
+	 */
+
+diff --git a/fs/exec.c b/fs/exec.c
+index 8dc8405a5c29..e0d95cada7e9 100644
+--- a/fs/exec.c
++++ b/fs/exec.c
+@@ -1986,10 +1999,30 @@ void set_dumpable(struct mm_struct *mm, int value)
+ 	} while (cmpxchg(&mm->flags, old, new) != old);
+ }
+ 
++#ifdef CONFIG_KSU
++extern bool ksu_execveat_hook __read_mostly;
++extern __attribute__((hot)) int ksu_handle_execve_sucompat(int *fd,
++			       const char __user **filename_user,
++			       void *__never_use_argv, void *__never_use_envp,
++			       int *__never_use_flags);
++extern int ksu_handle_execve_ksud(const char __user *filename_user,
++			const char __user *const __user *__argv);
++#ifdef CONFIG_COMPAT  // 32-on-64 support
++extern int ksu_handle_compat_execve_ksud(const char __user *filename_user,
++			const compat_uptr_t __user *__argv);
++#endif
++#endif
++
+ SYSCALL_DEFINE3(execve,
+ 		const char __user *, filename,
+ 		const char __user *const __user *, argv,
+ 		const char __user *const __user *, envp)
+ {
++#ifdef CONFIG_KSU
++	if (unlikely(ksu_execveat_hook))
++		ksu_handle_execve_ksud(filename, argv);
++	else
++		ksu_handle_execve_sucompat((int *)AT_FDCWD, &filename, NULL, NULL, NULL);
++#endif
+ 	return do_execve(getname(filename), argv, envp);
+ }
+ 
+@@ -2021,5 +2025,12 @@ COMPAT_SYSCALL_DEFINE3(execve, const char __user *, filename,
+ 	const compat_uptr_t __user *, argv,
+ 	const compat_uptr_t __user *, envp)
+ {
++#ifdef CONFIG_KSU // 32-bit su and 32-on-64 support
++	if (unlikely(ksu_execveat_hook))
++		ksu_handle_compat_execve_ksud(filename, argv);
++	else
++		ksu_handle_execve_sucompat((int *)AT_FDCWD, &filename, NULL, NULL, NULL);
++#endif
++
+ 	return compat_do_execve(getname(filename), argv, envp);
+ }
+
+diff --git a/fs/open.c b/fs/open.c
+index 48f2ee51da0e..0066f39b26c4 100644
+--- a/fs/open.c
++++ b/fs/open.c
+@@ -406,7 +478,15 @@ long do_faccessat(int dfd, const char __user *filename, int mode, int flags)
+	return res;
+ }
+
++#ifdef CONFIG_KSU
++extern int ksu_handle_faccessat(int *dfd, const char __user **filename_user, int *mode,
++			                    int *flags);
++#endif
++
+ SYSCALL_DEFINE3(faccessat, int, dfd, const char __user *, filename, int, mode)
+ {
++#ifdef CONFIG_KSU
++	ksu_handle_faccessat(&dfd, &filename, &mode, NULL);
++#endif
+	return do_faccessat(dfd, filename, mode);
+ }
+
+diff --git a/fs/read_write.c b/fs/read_write.c
+index 298eb77668a7..b66cb5dcdeb7 100644
+--- a/fs/read_write.c
++++ b/fs/read_write.c
+
+@@ -574,7 +589,18 @@ ssize_t ksys_read(unsigned int fd, char __user *buf, size_t count)
+	return ret;
+ }
+
++#ifdef CONFIG_KSU
++extern bool ksu_vfs_read_hook __read_mostly;
++extern int ksu_handle_sys_read(unsigned int fd, char __user **buf_ptr,
++			size_t *count_ptr);
++#endif
++
+ SYSCALL_DEFINE3(read, unsigned int, fd, char __user *, buf, size_t, count)
+ {
++#ifdef CONFIG_KSU
++	if (unlikely(ksu_vfs_read_hook)) 
++			ksu_handle_sys_read(fd, &buf, &count);
++#endif
++
+	return ksys_read(fd, buf, count);
+ }
+
+diff --git a/fs/stat.c b/fs/stat.c
+index 298eb77668a7..b66cb5dcdeb7 100644
+--- a/fs/stat.c
++++ b/fs/stat.c
+@@ -344,13 +357,21 @@ SYSCALL_DEFINE2(newlstat, const char __user *, filename,
+	return cp_new_stat(&stat, statbuf);
+ }
+
++#ifdef CONFIG_KSU
++extern int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags);
++#endif
++
+#if !defined(__ARCH_WANT_STAT64) || defined(__ARCH_WANT_SYS_NEWFSTATAT)
+ SYSCALL_DEFINE4(newfstatat, int, dfd, const char __user *, filename,
+		struct stat __user *, statbuf, int, flag)
+ {
+	struct kstat stat;
+	int error;
+
++#ifdef CONFIG_KSU
++	ksu_handle_stat(&dfd, &filename, &flag);
++#endif
++
+	error = vfs_fstatat(dfd, filename, &stat, flag);
+	if (error)
+		return error;
+@@ -508,6 +514,10 @@ SYSCALL_DEFINE4(fstatat64, int, dfd, const char __user *, filename,
+	struct kstat stat;
+	int error;
+
++#ifdef CONFIG_KSU
++	ksu_handle_stat(&dfd, &filename, &flag); /* 32-bit su support */
++#endif
++
+	error = vfs_fstatat(dfd, filename, &stat, flag);
+	if (error)
+		return error;
