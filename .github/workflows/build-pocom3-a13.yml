@@ -13,8 +13,8 @@ env:
   EXTRA_CMDS : "LD=ld.lld LLVM=1 LLVM_IAS=1"
 
   # KERNEL_SOURCE : "https://github.com/fredslbn/kernel_chime.git"
-  KERNEL_SOURCE : "https://github.com/Dominium-Apum/kernel_xiaomi_chime.git"
-  KERNEL_BRANCH : "main"
+  KERNEL_SOURCE : "https://github.com/frstprjkt/valeryn_xiaomi_sm6115.git"
+  KERNEL_BRANCH : "android16"
 
   CLANG_SOURCE : "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman"
   CLANG_BRANCH : ""
@@ -78,7 +78,7 @@ env:
   NOMOUNT_ENABLE: "true" # if u need NoMount.
   VPNHIDE_ENABLE: "false"
 
-  HOOK_METHOD: "branchlink" # Manual hook method ->  syscall.
+  HOOK_METHOD: "tamper" # Manual hook method ->  syscall.
 
   KERNEL_PATCH: "false" # If your kernel version is <= 4.9, you have the option of enabling the patch to patch the kernel_write and kernel_read functions.
 
@@ -98,7 +98,7 @@ env:
   BUILD_DEBUGGER: "false" # Output build errors.
   SKIP_PATCH: "false" # Ignore errors found in Patch Debugger.
 
-  BUILD_OTHER_CONFIG: "true" # Merge config files.
+  BUILD_OTHER_CONFIG: "false" # Merge config files.
   MERGE_CONFIG_FILES: "vendor/xxksu.config"
 
   FREE_MORE_SPACE: "false" # if u want get more space, enabled it.
