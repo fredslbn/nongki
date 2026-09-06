@@ -94,7 +94,7 @@ runs:
             echo "Backport patch successfully."
             
             cp /tmp/Patches/scope-${{ env.KERNEL_VERSION }}.patch ./
-            patch -p1 < susfs_patch_to_${{ env.KERNEL_VERSION }}.patch || true
+            patch -p1 < scope-${{ env.KERNEL_VERSION }}.patch || true
             echo "[+] Scope Minimize v2.3 Patch completed."
             
           fi
