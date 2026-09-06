@@ -684,9 +684,9 @@ index 5e94ec9..a9810ba 100644
  	hlist_for_each_entry_rcu(p, head, mnt_hash)
  		if (&p->mnt_parent->mnt == mnt && p->mnt_mountpoint == dentry)
  			return p;
-@@ -953,7 +1109,22 @@ vfs_kern_mount(struct file_system_type *type, int flags, const char *name, void
+@@ -990,17 +1156,32 @@ struct vfsmount *vfs_kern_mount(struct file_system_type *type,
  	if (!type)
- 		return ERR_PTR(-ENODEV);
+ 		return ERR_PTR(-EINVAL);
  
 +#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
 +	// - We will just stop checking for ksu process if /sdcard/Android is accessible,
@@ -699,13 +699,23 @@ index 5e94ec9..a9810ba 100644
 +	}
 +#endif
 +
- 	mnt = alloc_vfsmnt(name);
+ 	fc = fs_context_for_mount(type, flags);
+	if (IS_ERR(fc))
+		return ERR_CAST(fc);
+
+	if (name)
+		ret = vfs_parse_fs_string(fc, "source",
+					  name, strlen(name));
+	if (!ret)
+		ret = parse_monolithic_mount_data(fc, data);
+	if (!ret)
+		mnt = fc_mount(fc);
 +
 +#ifdef CONFIG_KSU_SUSFS_SUS_MOUNT
 +bypass_orig_flow:
 +#endif
- 	if (!mnt)
- 		return ERR_PTR(-ENOMEM);
+ 	else
+		mnt = ERR_PTR(ret);
  
 @@ -1035,7 +1206,40 @@ static struct mount *clone_mnt(struct mount *old, struct dentry *root,
  	struct mount *mnt;
@@ -3996,8 +4006,7 @@ index 6ac5d1b..ef8af78 100644
  #ifndef CONFIG_FAKE_UNAME_NONE
  #if defined(CONFIG_FAKE_UNAME_5_4)
  #define FAKE_UNAME "5.4.296"
-@@ -1263,6 +1263,10 @@ SYSCALL_DEFINE1(newuname, struct new_utsname __user *, name) 
- 
+@@ -1259,5 +1259,9 @@ SYSCALL_DEFINE1(newuname, struct new_utsname __user *, name) 
  	down_read(&uts_sem);
  	memcpy(&tmp, utsname(), sizeof(tmp));
 +#ifdef CONFIG_KSU_SUSFS_SPOOF_UNAME
