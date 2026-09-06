@@ -97,9 +97,9 @@ runs:
 
             echo "[+] executed backport patch (contain kernel_read and kernel_write patch) successfully."
           else
-            #cp /tmp/Patches/backport_patches.sh ./
-            #bash backport_patches.sh
-            echo "Dont need Backport patch."
+            cp /tmp/Patches/backport_patches.sh ./
+            bash backport_patches.sh
+            echo "Backport patch success."
             
             #cp /tmp/Patches/scope-${{ env.KERNEL_VERSION }}.patch ./
             #patch -p1 < scope-${{ env.KERNEL_VERSION }}.patch || true
