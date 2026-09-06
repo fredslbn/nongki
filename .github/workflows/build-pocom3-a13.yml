@@ -10,7 +10,7 @@ env:
   DEVICE_CODENAME : "citrus"
 
   CUSTOM_CMDS : "CLANG_TRIPLE=aarch64-linux-gnu-"
-  EXTRA_CMDS : "LD=ld.lld LLVM=1 LLVM_IAS=1 INSTALL_MOD_STRIP=1"
+  EXTRA_CMDS : "LD=ld.lld LLVM=1 LLVM_IAS=1"
 
   KERNEL_SOURCE : "https://github.com/fredslbn/kernel_chime.git"
   KERNEL_BRANCH : "main"
@@ -74,10 +74,10 @@ env:
 
   REKERNEL_ENABLE: "false" # if u need Re:Kernel.
   DROIDSPACES_ENABLE: "false" # if u need Droidspaces or LXC/Docker.
-  NOMOUNT_ENABLE: "false" # if u need NoMount.
+  NOMOUNT_ENABLE: "true" # if u need NoMount.
   VPNHIDE_ENABLE: "false"
 
-  HOOK_METHOD: "tamper" # Manual hook method ->  syscall.
+  HOOK_METHOD: "branchlink" # Manual hook method ->  syscall.
 
   KERNEL_PATCH: "false" # If your kernel version is <= 4.9, you have the option of enabling the patch to patch the kernel_write and kernel_read functions.
 
@@ -98,7 +98,7 @@ env:
   SKIP_PATCH: "false" # Ignore errors found in Patch Debugger.
 
   BUILD_OTHER_CONFIG: "true" # Merge config files.
-  MERGE_CONFIG_FILES: "vendor/xxksu2.config"
+  MERGE_CONFIG_FILES: "vendor/xxksu.config"
 
   FREE_MORE_SPACE: "false" # if u want get more space, enabled it.
 
