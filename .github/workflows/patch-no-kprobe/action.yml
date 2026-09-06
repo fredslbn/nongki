@@ -77,7 +77,7 @@ runs:
           else
             #cp /tmp/Patches/backport_patches.sh ./
             #bash backport_patches.sh
-            #echo "Backport patch successfully."
+            echo "Dont need Backport patch."
             
             #cp /tmp/Patches/scope-${{ env.KERNEL_VERSION }}.patch ./
             #patch -p1 < scope-${{ env.KERNEL_VERSION }}.patch || true
