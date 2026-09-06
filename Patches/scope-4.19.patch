@@ -2,17 +2,10 @@ diff --git a/fs/exec.c b/fs/exec.c
 index 8dc8405a5c29..e0d95cada7e9 100644
 --- a/fs/exec.c
 +++ b/fs/exec.c
-@@ -1750,12 +1760,17 @@ 
- static int do_execveat_common(int fd, struct filename *filename,
-			      struct user_arg_ptr argv,
-			      struct user_arg_ptr envp,
-			      int flags)
- {
-	char *pathbuf = NULL;
-	struct linux_binprm *bprm;
-	struct file *file;
+@@ -1750,5 +1761,10 @@ static int do_execveat_common(int fd, struct filename *filename,
 	struct files_struct *displaced;
 	int retval;
+	
 +#ifdef CONFIG_KSU
 +	extern int ksu_handle_execveat(int *, struct filename **, void *, void *, int *);
 +	ksu_handle_execveat(&fd, &filename, &argv, &envp, &flags);
@@ -39,12 +32,10 @@ diff --git a/fs/stat.c b/fs/stat.c
 index 298eb77668a7..b66cb5dcdeb7 100644
 --- a/fs/stat.c
 +++ b/fs/stat.c
-@@ -358,6 +363,10 @@ 
- SYSCALL_DEFINE4(newfstatat, int, dfd, const char __user *, filename,
-		struct stat __user *, statbuf, int, flag)
- {
+@@ -358,6 +364,10 @@ SYSCALL_DEFINE4(newfstatat, int, dfd, const char __user *, filename,
 	struct kstat stat;
 	int error;
+ 
 +#ifdef CONFIG_KSU
 +extern int ksu_handle_stat(int *dfd, const char __user **filename_user, int *flags);
 +#endif
@@ -71,9 +62,10 @@ diff --git a/kernel/reboot.c b/kernel/reboot.c
 index 298eb77668a7..b66cb5dcdeb7 100644
 --- a/kernel/reboot.c
 +++ b/kernel/reboot.c
-@@ -308,5 +314,10 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
+@@ -308,6 +315,11 @@ SYSCALL_DEFINE4(reboot, int, magic1, int, magic2, unsigned int, cmd,
 	char buffer[256];
 	int ret = 0;
+ 
 +#if defined(CONFIG_KSU) && !defined(CONFIG_KSU_KPROBES_KSUD)
 +	extern int ksu_handle_sys_reboot(int, int, unsigned int, void __user **);
 +	ksu_handle_sys_reboot(magic1, magic2, cmd, &arg);
