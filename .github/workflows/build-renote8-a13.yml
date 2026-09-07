@@ -16,11 +16,11 @@ env:
   KERNEL_SOURCE : "https://github.com/neophyte404/kernel_xiaomi_ginkgo.git"
   KERNEL_BRANCH : "non"
 
-  CLANG_SOURCE : "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman"
-  CLANG_BRANCH : ""
-  
-  # CLANG_SOURCE : "https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.2/LLVM-22.1.2-Linux-X64.tar.xz"
+  # CLANG_SOURCE : "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman"
   # CLANG_BRANCH : ""
+  
+  CLANG_SOURCE : "https://github.com/LineageOS/android_prebuilts_clang_kernel_linux-x86_clang-r416183b.git"
+  CLANG_BRANCH : "lineage-20.0"
 
   GCC_GNU : false
   GCC_64_SOURCE : "https://github.com/JackA1ltman/Google-GCC-Android-4.9.git"
