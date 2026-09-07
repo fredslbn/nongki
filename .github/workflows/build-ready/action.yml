@@ -111,8 +111,8 @@ runs:
           cd $GITHUB_WORKSPACE/device_kernel
 
           echo "::group::[+] Starting clean hook..."
-          cp /tmp/Bin/clean_hook.sh ./
-          bash clean_hook.sh
+          cp /tmp/Bin/clean_hook_ginkgo.sh ./
+          bash clean_hook_ginkgo.sh
           echo "::endgroup::"
           echo "[+] Cleaned hook."
 
