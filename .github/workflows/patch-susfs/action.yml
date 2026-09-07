@@ -72,19 +72,16 @@ runs:
 
           # Check SuSFS
           if grep -q "CONFIG_KSU_SUSFS_SUS_MOUNT" "fs/namespace.c"; then
-            echo "[-] SuSFS is already patched, Skipped."
-            echo "SUSFS_SKIP=true" >> $GITHUB_ENV
+            if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then              
+               echo "[+] SuSFS has already patched manually in kernel sources."               
+               patch -p1 < <(curl -sL "https://raw.githubusercontent.com/midori01/gki_ksu_workflow/refs/heads/main/.github/patches/55_try_umount_for_susfs.patch") || true
+               echo "[+] But still lack try_umount susfs patch, and now patched successfully."            
+            else                        
+               echo "[-] SuSFS is already patched, Skipped."
+               echo "SUSFS_SKIP=true" >> $GITHUB_ENV
+            fi
 
           else
-          
-            if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then
-               
-               echo "[+] SuSFS has already patched manually in kernel sources."
-               
-               patch -p1 < <(curl -sL "https://raw.githubusercontent.com/midori01/gki_ksu_workflow/refs/heads/main/.github/patches/55_try_umount_for_susfs.patch") || true
-               echo "[+] But still lack try_umount susfs patch, and now patched successfully."
-            
-            else
 
           #  if [[ "${{ env.KERNELSU_SOURCE }}" == *backslashxx* ]] || [[ "${{ env.KERNELSU_AUTO_FORK }}" == "xxksu" ]]; then
           #    wget https://raw.githubusercontent.com/midori01/gki_ksu_workflow/refs/heads/main/.github/scripts/susfs_deinlined.sh
@@ -102,7 +99,6 @@ runs:
                           
               patch -p1 < <(curl -sL "https://raw.githubusercontent.com/midori01/gki_ksu_workflow/refs/heads/main/.github/patches/55_try_umount_for_susfs.patch") || true
               echo "[+] try_umount susfs patch success."
-            fi
             
           fi
 
