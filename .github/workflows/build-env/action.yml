@@ -459,19 +459,19 @@ runs:
                 ${{ env.CURLX }} "${{ env.CLANG_SOURCE }}" clang.tar.gz
                 mkdir clang-custom
                 tar -C clang-custom/ -zxf clang.tar.gz
-                chmod -R +x * /clang-custom
+                chmod -R +x * /home/runner/work/nongki/nongki/clang-custom
 
             elif [[ "${{ env.CLANG_SOURCE }}" == *'.tar.xz' ]]; then
                 ${{ env.CURLX }} "${{ env.CLANG_SOURCE }}" clang.tar.xz
                 mkdir clang-custom
                 tar -C clang-custom/ -xf clang.tar.xz --strip-components 1
-                chmod -R +x * /clang-custom
+                chmod -R +x * /home/runner/work/nongki/nongki/clang-custom
 
             elif [[ "${{ env.CLANG_SOURCE }}" == *'.zip' ]]; then
                 ${{ env.CURLX }} "${{ env.CLANG_SOURCE }}" clang.zip
                 mkdir clang-custom
                 unzip clang.zip -d clang-custom/
-                chmod -R +x * /clang-custom
+                chmod -R +x * /home/runner/work/nongki/nongki/clang-custom
 
             elif [[ "${{ env.CLANG_SOURCE }}" == *"antman" ]]; then
                 mkdir clang-custom
@@ -481,7 +481,7 @@ runs:
                 ./antman -S --noprogress
                 ./antman --patch=glibc
                 bash antman -S=10032024
-                chmod -R +x * /clang-custom
+                chmod -R +x * /home/runner/work/nongki/nongki/clang-custom
 
             elif [[ "${{ env.CLANG_SOURCE }}" == *"android.googlesource.com"* ]]; then
                 git clone "${{ env.CLANG_SOURCE }}" -b "${{ env.CLANG_BRANCH }}" clang-custom --depth=1
@@ -490,7 +490,7 @@ runs:
                 if [ -n "$SUBDIR" ]; then
                     mv "$SUBDIR"/* clang-custom/
                 fi
-                chmod -R +x * /clang-custom
+                chmod -R +x * /home/runner/work/nongki/nongki/clang-custom
 
             else
                 echo "::endgroup::"
