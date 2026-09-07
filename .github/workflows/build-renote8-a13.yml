@@ -10,7 +10,7 @@ env:
   DEVICE_CODENAME : "ginkgo"
 
   CUSTOM_CMDS : "CLANG_TRIPLE=aarch64-linux-gnu-"
-  EXTRA_CMDS : "LD=ld.lld LLVM=1 LLVM_IAS=1"
+  EXTRA_CMDS : "LD=ld.lld AR=llvm-ar AS=llvm-as NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip"
 
   # KERNEL_SOURCE : "https://github.com/fredslbn/kernel_chime.git"
   KERNEL_SOURCE : "https://github.com/neophyte404/kernel_xiaomi_ginkgo.git"
