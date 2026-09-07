@@ -111,8 +111,16 @@ runs:
           cd $GITHUB_WORKSPACE/device_kernel
 
           echo "::group::[+] Starting clean hook..."
-          cp /tmp/Bin/clean_hook_ginkgo.sh ./
-          bash clean_hook_ginkgo.sh
+          
+          if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then
+          
+              cp /tmp/Bin/clean_hook_ginkgo.sh ./
+              bash clean_hook_ginkgo.sh
+          else
+              cp /tmp/Bin/clean_hook.sh ./
+              bash clean_hook.sh
+          fi
+          
           echo "::endgroup::"
           echo "[+] Cleaned hook."
 
