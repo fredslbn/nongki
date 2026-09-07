@@ -77,9 +77,12 @@ runs:
 
           else
           
-            if [[ "${{ env.KERNEL_SOURCE }}" == *Frenzy169* ]]; then
+            if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then
                
-               echo "[+] SuSFS Patches has already done manually in kernel sources."
+               echo "[+] SuSFS has already patched manually in kernel sources."
+               
+               patch -p1 < <(curl -sL "https://raw.githubusercontent.com/midori01/gki_ksu_workflow/refs/heads/main/.github/patches/55_try_umount_for_susfs.patch") || true
+               echo "[+] But still lack try_umount susfs patch, and now patched successfully."
             
             else
 

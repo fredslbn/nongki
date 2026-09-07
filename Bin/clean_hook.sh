@@ -38,10 +38,15 @@ done
 # Removal of SuSFS
 
 for file in "${SUSFS_CLEAN_FILES[@]}"; do
+
+  if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then
+    echo "[+] Success keep 24 files: ${file}."
+  else
     perl -i -0777 -pe 's/#ifndef CONFIG_KSU_SUSFS[^\n]*\n(.*?)#else\n(.*?)#endif\n/$1/gs; s/#ifdef CONFIG_KSU_SUSFS[^\n]*\n(.*?)#else\n(.*?)#endif\n/$1/gs' "${file}"
     sed -i '/#ifdef CONFIG_KSU_SUSFS/,/#endif/d' "${file}"
     sed -i '/#if defined(CONFIG_KSU_SUSFS/,/#endif/d' "${file}"
     sed -i '/#ifndef CONFIG_KSU_SUSFS/,/#endif/d' "${file}"
+  fi
 
     if grep -q "CONFIG_KSU_SUSFS/" "${file}"; then
         echo "[-] Could not remove SuSFS hook from ${file}."
@@ -51,8 +56,13 @@ for file in "${SUSFS_CLEAN_FILES[@]}"; do
 done
 
 for file in "${SUSFS_REMAIN_CLEAN_FILES[@]}"; do
+   
+  if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then  
+    echo "[+] Success keep 4 files: ${file}."
+  else
     rm -f "${file}"
-
+  fi    
+    
     if [ -f "${file}" ]; then
         echo "[-] Could not remove file ${file}."
     else
@@ -60,13 +70,19 @@ for file in "${SUSFS_REMAIN_CLEAN_FILES[@]}"; do
     fi
 done
 
-if grep -q "CONFIG_KSU_SUSFS" "fs/Makefile"; then
-    sed -i '/CONFIG_KSU_SUSFS/d' fs/Makefile
-    if grep -q "CONFIG_KSU_SUSFS" "fs/Makefile"; then
-        echo "[-] Could not remove code from fs/Makefile."
-    else
-        echo "[+] Removed code for fs/Makefile."
-    fi
+if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then
+   echo "[+] Success keep code in fs/Makefile."
 else
-    echo "[-] Have no CONFIG_KSU_SUSFS in fs/Makefile"
+
+   if grep -q "CONFIG_KSU_SUSFS" "fs/Makefile"; then
+       sed -i '/CONFIG_KSU_SUSFS/d' fs/Makefile
+       if grep -q "CONFIG_KSU_SUSFS" "fs/Makefile"; then
+           echo "[-] Could not remove code from fs/Makefile."
+       else
+           echo "[+] Removed code for fs/Makefile."
+       fi
+   else
+       echo "[-] Have no CONFIG_KSU_SUSFS in fs/Makefile"
+   fi
+   
 fi
