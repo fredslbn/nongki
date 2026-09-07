@@ -11,6 +11,9 @@ SUSFS_CLEAN_FILES=("security/selinux/avc.c" "kernel/kallsyms.c" "kernel/sys.c" "
 
 SUSFS_REMAIN_CLEAN_FILES=("fs/susfs.c" "fs/sus_su.c" "include/linux/susfs.h" "include/linux/susfs_def.h")
 
+KERNEL_SOURCE="https://github.com/neophyte404/kernel_xiaomi_ginkgo.git"
+
+
 # Removal of KernelSU
 
 for file in "${KSU_FOLDER[@]}"; do
@@ -39,7 +42,7 @@ done
 
 for file in "${SUSFS_CLEAN_FILES[@]}"; do
 
-  if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then
+  if [ "${KERNEL_SOURCE}" == *neophyte404* ]; then
     echo "[+] Success keep 24 files: ${file}."
   else
     perl -i -0777 -pe 's/#ifndef CONFIG_KSU_SUSFS[^\n]*\n(.*?)#else\n(.*?)#endif\n/$1/gs; s/#ifdef CONFIG_KSU_SUSFS[^\n]*\n(.*?)#else\n(.*?)#endif\n/$1/gs' "${file}"
@@ -57,7 +60,7 @@ done
 
 for file in "${SUSFS_REMAIN_CLEAN_FILES[@]}"; do
    
-  if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then  
+  if [ "${KERNEL_SOURCE}" == *neophyte404* ]; then  
     echo "[+] Success keep 4 files: ${file}."
   else
     rm -f "${file}"
@@ -70,7 +73,7 @@ for file in "${SUSFS_REMAIN_CLEAN_FILES[@]}"; do
     fi
 done
 
-if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then
+if [ "${KERNEL_SOURCE}" == *neophyte404* ]; then
    echo "[+] Success keep code in fs/Makefile."
 else
 
