@@ -9,6 +9,13 @@ on:
 
 jobs:
   # Xiaomi
+  build-renote8-a13:
+    name: "Build RENOTE 8 (A13)"
+    strategy:
+      fail-fast: true
+    uses: ./.github/workflows/build-renote8-a13.yml
+    secrets: inherit
+  
   build-renote10pro-a13:
     name: "Build RENOTE 10 PRO (A13)"
     strategy:
