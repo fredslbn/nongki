@@ -16,11 +16,11 @@ env:
   KERNEL_SOURCE : "https://github.com/Frenzy169/kernel_xiaomi_ginkgo.git"
   KERNEL_BRANCH : "sixteen/main"
 
-  CLANG_SOURCE : "https://gitlab.com/nekoprjkt/aosp-clang"
-  CLANG_BRANCH : "17"
+  # CLANG_SOURCE : "https://gitlab.com/nekoprjkt/aosp-clang"
+  # CLANG_BRANCH : "17"
   
-  # CLANG_SOURCE : "https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.2/LLVM-22.1.2-Linux-X64.tar.xz"
-  # CLANG_BRANCH : ""
+  CLANG_SOURCE : "https://github.com/llvm/llvm-project/releases/download/llvmorg-22.1.2/LLVM-22.1.2-Linux-X64.tar.xz"
+  CLANG_BRANCH : ""
 
   GCC_GNU : false
   GCC_64_SOURCE : "https://github.com/JackA1ltman/Google-GCC-Android-4.9.git"
