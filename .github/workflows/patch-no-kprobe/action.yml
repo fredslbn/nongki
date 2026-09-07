@@ -31,6 +31,9 @@ runs:
             echo "CONFIG_KSU_TAMPER_SYSCALL_TABLE=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KSU_HOSTSREDIRECT=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KSU_FEATURE_SULOG=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_FEATURE_ADBROOT=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_DEBUG=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_DEBUG_FS=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KPROBES=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_HAVE_KPROBES=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KPROBE_EVENTS=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
@@ -45,6 +48,9 @@ runs:
             echo "CONFIG_KSU_HACK_ARM64_BRANCH_LINK=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KSU_HOSTSREDIRECT=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KSU_FEATURE_SULOG=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_FEATURE_ADBROOT=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KSU_DEBUG=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_DEBUG_FS=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KPROBES=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_HAVE_KPROBES=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KPROBE_EVENTS=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
@@ -96,15 +102,21 @@ runs:
             fi
 
             echo "[+] executed backport patch (contain kernel_read and kernel_write patch) successfully."
+          
           else
-            cp /tmp/Patches/backport_patches.sh ./
-            bash backport_patches.sh
-            echo "Backport patch success."
             
-            #cp /tmp/Patches/scope-${{ env.KERNEL_VERSION }}.patch ./
-            #patch -p1 < scope-${{ env.KERNEL_VERSION }}.patch || true
-            #echo "[+] Scope Minimize v2.3 Patch completed."
-            
+             if [[ "${{ env.SUSFS_ENABLE }}" == "true" ]]; then              
+               cp /tmp/Patches/backport_patches.sh ./
+               bash backport_patches.sh
+               echo "Backport umount path and patching success."
+               
+               #cp /tmp/Patches/scope-${{ env.KERNEL_VERSION }}.patch ./
+               #patch -p1 < scope-${{ env.KERNEL_VERSION }}.patch || true
+               #echo "[+] Scope Minimize v2.3 Patch completed."
+             else
+               echo "No need for backport umount path."
+             fi
+                    
           fi
 
           # Check for static state in partial functions
