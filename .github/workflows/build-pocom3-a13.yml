@@ -45,7 +45,7 @@ env:
   KERNELSU_AUTO_GET : "true"
   KERNELSU_AUTO_FORK : "xxksu" # xxksu, rsuntk , next, resukisu and sukisu
 
-  SUSFS_ENABLE : true
+  SUSFS_ENABLE : false
   SUSFS_FIXED : false
 
   AK3_SOURCE : "https://github.com/fredslbn/AnyKernel3.git"
@@ -135,7 +135,7 @@ jobs:
           cd $GITHUB_WORKSPACE/device_kernel
 
           # enable CONFIG_COMPAT_VDSO and CONFIG_THUMB2_COMPAT_VDSO
-          echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+          # echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
           
           sed -i 's/-valeryn/-super.Kernel/g' localversion
           sed -i 's/-cip131//g' localversion-cip
