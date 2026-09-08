@@ -4006,7 +4006,7 @@ index 6ac5d1b..ef8af78 100644
  #ifndef CONFIG_FAKE_UNAME_NONE
  #if defined(CONFIG_FAKE_UNAME_5_4)
  #define FAKE_UNAME "5.4.296"
-@@ -1259,9 +1259,13 @@ 
+@@ -1259,9 +1263,13 @@ 
  SYSCALL_DEFINE1(newuname, struct new_utsname __user *, name)
  {
     struct new_utsname tmp;
