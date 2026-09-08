@@ -14,7 +14,7 @@ env:
 
   # KERNEL_SOURCE : "https://github.com/fredslbn/kernel_chime.git"
   KERNEL_SOURCE : "https://github.com/neophyte404/kernel_xiaomi_ginkgo.git"
-  KERNEL_BRANCH : "non"
+  KERNEL_BRANCH : "main"
 
   CLANG_SOURCE : "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman"
   CLANG_BRANCH : ""
@@ -45,7 +45,7 @@ env:
   KERNELSU_AUTO_GET : "true"
   KERNELSU_AUTO_FORK : "xxksu" # xxksu, rsuntk , next, resukisu and sukisu
 
-  SUSFS_ENABLE : false
+  SUSFS_ENABLE : true
   SUSFS_FIXED : false
 
   AK3_SOURCE : "https://github.com/fredslbn/AnyKernel3.git"
