@@ -137,7 +137,7 @@ jobs:
           # enable CONFIG_COMPAT_VDSO and CONFIG_THUMB2_COMPAT_VDSO
           echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
           
-          grep -q "-valeryn" "localversion" >/dev/null 2>&1; then
+          grep -q "-valeryn" "localversion" >/dev/null 2>&1
           sed 's/-valeryn/-super.Kernel/g' localversion
           echo "[+] Localversion string has been replaced."
                     
