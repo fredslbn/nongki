@@ -112,7 +112,7 @@ runs:
 
           echo "::group::[+] Starting clean hook..."
           
-          if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then
+          if [[ "${{ env.KERNEL_SOURCE }}" == *entahsiapa* ]]; then
           
               cp /tmp/Bin/clean_hook_ginkgo.sh ./
               bash clean_hook_ginkgo.sh

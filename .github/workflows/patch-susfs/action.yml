@@ -72,7 +72,7 @@ runs:
 
           # Check SuSFS
           if grep -q "CONFIG_KSU_SUSFS_SUS_MOUNT" "fs/namespace.c"; then
-            if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then              
+            if [[ "${{ env.KERNEL_SOURCE }}" == *entahsiapa* ]]; then              
                echo "[+] SuSFS has already patched manually in kernel sources."               
                patch -p1 < <(curl -sL "https://raw.githubusercontent.com/midori01/gki_ksu_workflow/refs/heads/main/.github/patches/55_try_umount_for_susfs.patch") || true
                echo "[+] But still lack try_umount susfs patch, and now patched successfully."            
@@ -93,9 +93,9 @@ runs:
           #    echo "[+] try_umount susfs patch success."
           #  else
           
-              if [[ "${{ env.KERNEL_SOURCE }}" == *frstprjkt* ]]; then              
-                 cp /tmp/Patches/Patch/susfs_valeryn_patch_to_${{ env.KERNEL_VERSION }}.patch ./
-                 patch -p1 < susfs_valeryn_patch_to_${{ env.KERNEL_VERSION }}.patch || true
+              if [[ "${{ env.KERNEL_SOURCE }}" == *neophyte404* ]]; then              
+                 cp /tmp/Patches/Patch/susfs_neo_patch_to_${{ env.KERNEL_VERSION }}.patch ./
+                 patch -p1 < susfs_neo_patch_to_${{ env.KERNEL_VERSION }}.patch || true
                  echo "[+] SuSFS Patch completed."
               else            
                  cp /tmp/Patches/Patch/susfs_patch_to_${{ env.KERNEL_VERSION }}.patch ./
