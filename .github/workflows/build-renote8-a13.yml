@@ -23,10 +23,10 @@ env:
   # CLANG_BRANCH : "lineage-20.0"
 
   GCC_GNU : false
-  GCC_64_SOURCE : "https://github.com/mathworks/armlinarotoolchain/releases/download/2017.02/gcc-linaro-6.3.1-2017.02-i686-mingw32_aarch64-linux-gnu.tar.gz"
-  GCC_64_BRANCH : ""
-  GCC_32_SOURCE : "https://github.com/mathworks/armlinarotoolchain/releases/download/2017.02/gcc-linaro-6.3.1-2017.02-i686-mingw32_arm-linux-gnueabihf.tar.gz"
-  GCC_32_BRANCH : ""
+  GCC_64_SOURCE : "https://github.com/orangepi-xunlong/toolchain.git"
+  GCC_64_BRANCH : "aarch64-linux-gnu-7.4.1"
+  GCC_32_SOURCE : "https://github.com/orangepi-xunlong/toolchain.git"
+  GCC_32_BRANCH : "arm-linux-gnueabihf-7.2.1"
   
   # GCC_GNU : false
   # GCC_64_SOURCE : "https://android.googlesource.com/platform/prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9.git"
