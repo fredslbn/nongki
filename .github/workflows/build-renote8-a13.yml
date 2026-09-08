@@ -45,7 +45,7 @@ env:
   KERNELSU_AUTO_GET : "true"
   KERNELSU_AUTO_FORK : "xxksu" # xxksu, rsuntk , next, resukisu and sukisu
 
-  SUSFS_ENABLE : true
+  SUSFS_ENABLE : false
   SUSFS_FIXED : false
 
   AK3_SOURCE : "https://github.com/fredslbn/AnyKernel3.git"
@@ -133,11 +133,12 @@ jobs:
         run: |
           # Only ${{ env.DEVICE_NAME }} use it.
           cd $GITHUB_WORKSPACE/device_kernel
-
+          
+          echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
           # enable CONFIG_COMPAT_VDSO and CONFIG_THUMB2_COMPAT_VDSO
           echo "CONFIG_COMPAT_VDSO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
           # echo "CONFIG_THUMB2_COMPAT_VDSO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-          sed -i 's/-Neophyte-Reborn/-super.Kernel/g' localversion
+          sed -i 's/-Neophyte-Reborn/-super.kernel/g' localversion
           echo "Localversion string has been replaced."
 
       - name: 🛡 Patch Kernel of VPNHide
