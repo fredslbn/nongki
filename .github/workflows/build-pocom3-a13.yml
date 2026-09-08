@@ -45,7 +45,7 @@ env:
   KERNELSU_AUTO_GET : "true"
   KERNELSU_AUTO_FORK : "xxksu" # xxksu, rsuntk , next, resukisu and sukisu
 
-  SUSFS_ENABLE : false
+  SUSFS_ENABLE : true
   SUSFS_FIXED : false
 
   AK3_SOURCE : "https://github.com/fredslbn/AnyKernel3.git"
@@ -136,8 +136,10 @@ jobs:
 
           # enable CONFIG_COMPAT_VDSO and CONFIG_THUMB2_COMPAT_VDSO
           echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-          echo "" >> ./localversion-st
-          echo "" >> ./localversion-cip
+          
+          grep -q "-valeryn" "localversion" >/dev/null 2>&1; then
+          sed 's/-valeryn/-super.Kernel/g' localversion
+          echo "[+] Localversion string has been replaced."
                     
       - name: 🛡 Patch Kernel of VPNHide
         uses: ./.github/workflows/patch-vpnhide

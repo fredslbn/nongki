@@ -92,10 +92,16 @@ runs:
           #    patch -p1 < <(curl -sL "https://raw.githubusercontent.com/midori01/gki_ksu_workflow/refs/heads/main/.github/patches/55_try_umount_for_susfs.patch") || true
           #    echo "[+] try_umount susfs patch success."
           #  else
-              
-              cp /tmp/Patches/Patch/susfs_patch_to_${{ env.KERNEL_VERSION }}.patch ./
-              patch -p1 < susfs_patch_to_${{ env.KERNEL_VERSION }}.patch || true
-              echo "[+] SuSFS Patch completed."
+          
+              if [[ "${{ env.KERNEL_SOURCE }}" == *frstprjkt* ]]; then              
+                 cp /tmp/Patches/Patch/susfs_valeryn_patch_to_${{ env.KERNEL_VERSION }}.patch ./
+                 patch -p1 < susfs_valeryn_patch_to_${{ env.KERNEL_VERSION }}.patch || true
+                 echo "[+] SuSFS Patch completed."
+              else            
+                 cp /tmp/Patches/Patch/susfs_patch_to_${{ env.KERNEL_VERSION }}.patch ./
+                 patch -p1 < susfs_patch_to_${{ env.KERNEL_VERSION }}.patch || true
+                 echo "[+] SuSFS Patch completed."
+              fi
                           
               patch -p1 < <(curl -sL "https://raw.githubusercontent.com/midori01/gki_ksu_workflow/refs/heads/main/.github/patches/55_try_umount_for_susfs.patch") || true
               echo "[+] try_umount susfs patch success."
