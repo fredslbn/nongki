@@ -13,8 +13,8 @@ env:
   EXTRA_CMDS : "LD=ld.lld LLVM=1 LLVM_IAS=1"
 
   # KERNEL_SOURCE : "https://github.com/fredslbn/kernel_chime.git"
-  KERNEL_SOURCE : "https://github.com/frstprjkt/valeryn_xiaomi_sm6115.git"
-  KERNEL_BRANCH : "android16"
+  KERNEL_SOURCE : "https://github.com/fredslbn/superchime.git"
+  KERNEL_BRANCH : "main"
 
   CLANG_SOURCE : "https://raw.githubusercontent.com/Neutron-Toolchains/antman/main/antman"
   CLANG_BRANCH : ""
@@ -135,7 +135,7 @@ jobs:
           cd $GITHUB_WORKSPACE/device_kernel
 
           # enable CONFIG_COMPAT_VDSO and CONFIG_THUMB2_COMPAT_VDSO
-          echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+          # echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
           
           sed -i 's/-valeryn/-super.kernel/g' localversion
           sed -i 's/-cip131//g' localversion-cip
