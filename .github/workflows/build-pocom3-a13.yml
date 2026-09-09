@@ -7,7 +7,7 @@ on:
 env:
   # Device env
   DEVICE_NAME : "poco_m3"
-  DEVICE_CODENAME : "citrus"
+  DEVICE_CODENAME : "Citrus"
 
   CUSTOM_CMDS : "CLANG_TRIPLE=aarch64-linux-gnu-"
   EXTRA_CMDS : "LD=ld.lld LLVM=1 LLVM_IAS=1"
