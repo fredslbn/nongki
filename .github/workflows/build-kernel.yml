@@ -30,4 +30,10 @@ jobs:
     uses: ./.github/workflows/build-pocom3-a13.yml
     secrets: inherit
     
+  build-pocox3-a13:
+    name: "Build POCO X3 (A13)"
+    strategy:
+      fail-fast: true
+    uses: ./.github/workflows/build-pocox3-a13.yml
+    secrets: inherit
   
