@@ -51,16 +51,15 @@ runs:
             echo "CONFIG_KSU_HOSTSREDIRECT=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             
             echo "CONFIG_DEBUG_FS=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KPROBES=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_HAVE_KPROBES=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KPROBE_EVENTS=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            echo "CONFIG_KPROBE_EVENT=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KPROBES=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_HAVE_KPROBES=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+            echo "CONFIG_KPROBE_EVENTS=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KALLSYMS_ALL=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             if [[ "${{ env.ROM_TYPE }}" == "custom" ]]; then
                echo "CONFIG_CFI_CLANG=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             else
                echo "CONFIG_CFI_CLANG=n" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
-            fi
+            fi                     
             
             echo "[+] BRANCHLINK HOOK method configs applied from defconfig."
                                                           
