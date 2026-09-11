@@ -10,28 +10,28 @@ on:
 jobs:
   # Xiaomi
   build-renote8-a13:
-    name: "Build RENOTE 8 (A13)"
+    name: "Build RENOTE 8"
     strategy:
       fail-fast: true
     uses: ./.github/workflows/build-renote8-a13.yml
     secrets: inherit
   
   build-renote10pro-a13:
-    name: "Build RENOTE 10 PRO (A13)"
+    name: "Build RENOTE 10 PRO"
     strategy:
       fail-fast: true
     uses: ./.github/workflows/build-renote10pro-a13.yml
     secrets: inherit
   
   build-pocom3-a13:
-    name: "Build POCO M3 (A13)"
+    name: "Build POCO M3"
     strategy:
       fail-fast: true
     uses: ./.github/workflows/build-pocom3-a13.yml
     secrets: inherit
     
   build-pocox3-a13:
-    name: "Build POCO X3 (A13)"
+    name: "Build POCO X3"
     strategy:
       fail-fast: true
     uses: ./.github/workflows/build-pocox3-a13.yml

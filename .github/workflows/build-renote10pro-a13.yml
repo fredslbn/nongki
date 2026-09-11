@@ -1,4 +1,4 @@
-name: Build RENOTE 10 PRO (A13)
+name: Build RENOTE 10 PRO
 
 on:
   workflow_call:
@@ -107,7 +107,7 @@ env:
 
 jobs:
   build-kernel:
-    name: RENOTE 10 PRO (A13)
+    name: RENOTE 10 PRO
     runs-on: ubuntu-latest # u can changed to ubuntu 22.04, and need container set ubuntu-latest
     # container: archlinux/archlinux:latest # if u need use arch linux -> archlinux/archlinux:latest or ubuntu 20.04 -> ubuntu:focal
     env:
@@ -143,7 +143,7 @@ jobs:
           cd $GITHUB_WORKSPACE/device_kernel
 
           # enable CONFIG_COMPAT_VDSO and CONFIG_THUMB2_COMPAT_VDSO
-          # echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+          echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
           echo "CONFIG_LOCALVERSION=-super.kernel" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
           echo "Localversion string has been replaced."
 
