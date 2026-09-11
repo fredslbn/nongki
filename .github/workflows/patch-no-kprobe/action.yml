@@ -30,7 +30,6 @@ runs:
             echo "CONFIG_KSU_TAMPER_SYSCALL_TABLE=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KSU_HOSTSREDIRECT=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             
-            echo "CONFIG_DEBUG_FS=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KPROBES=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_HAVE_KPROBES=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KPROBE_EVENTS=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
@@ -49,7 +48,6 @@ runs:
             echo "CONFIG_KSU_HACK_ARM64_BRANCH_LINK=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KSU_HOSTSREDIRECT=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             
-            echo "CONFIG_DEBUG_FS=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KPROBES=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_HAVE_KPROBES=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
             echo "CONFIG_KPROBE_EVENTS=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
@@ -110,19 +108,21 @@ runs:
           else
             
              if [[ "${{ env.SUSFS_ENABLE }}" == "true" ]]; then              
-               cp /tmp/Patches/backport_patches.sh ./
-               bash backport_patches.sh
-               echo "Backport umount path and patching success."
+               # cp /tmp/Patches/backport_patches.sh ./
+               # bash backport_patches.sh
+               # echo "Backport umount path and patching success."
                
+               echo "No need for backport umount path anymore."
+                              
                #cp /tmp/Patches/scope-${{ env.KERNEL_VERSION }}.patch ./
                #patch -p1 < scope-${{ env.KERNEL_VERSION }}.patch || true
                #echo "[+] Scope Minimize v2.3 Patch completed."
              else
-               cp /tmp/Patches/backport_patches.sh ./
-               bash backport_patches.sh
-               echo "Backport umount path and patching success."
+               # cp /tmp/Patches/backport_patches.sh ./
+               # bash backport_patches.sh
+               # echo "Backport umount path and patching success."
 
-               # echo "No need for backport umount path."
+               echo "No need for backport umount path anymore."
              fi
                     
           fi
