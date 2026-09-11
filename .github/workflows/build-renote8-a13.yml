@@ -57,6 +57,8 @@ env:
   NEED_SAFE_DTBO : false
 
   ROM_TEXT : "xxKSU"
+  
+  ROM_TYPE : "custom" # custom, manufacture
 
   # Other env
   PYTHON_VERSION: "3" # Only 2(Ubuntu 22.04 and Ubuntu 20.04) or 3(Any OS Versions).

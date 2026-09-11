@@ -57,6 +57,8 @@ env:
   NEED_SAFE_DTBO : false
 
   ROM_TEXT : "xxKSU"
+  
+  ROM_TYPE : "custom" # custom, manufacture
 
   # Other env
   PYTHON_VERSION: "3" # Only 2(Ubuntu 22.04 and Ubuntu 20.04) or 3(Any OS Versions).
@@ -134,6 +136,16 @@ jobs:
 
       - name: 🪝 Patch Kernel of NoMount
         uses: ./.github/workflows/patch-nomount
+        
+      - name: 🪛 Extra Kernel Options
+        run: |
+          # Only ${{ env.DEVICE_NAME }} use it.
+          cd $GITHUB_WORKSPACE/device_kernel
+
+          # enable CONFIG_COMPAT_VDSO and CONFIG_THUMB2_COMPAT_VDSO
+          # echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+          echo "CONFIG_LOCALVERSION=-super.kernel" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+          echo "Localversion string has been replaced."
 
       - name: 🚀 Build Process
         uses: ./.github/workflows/build-process

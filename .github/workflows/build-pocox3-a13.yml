@@ -58,7 +58,7 @@ env:
 
   ROM_TEXT : "xxKSU"
   
-  ROM_TYPE : "manufacture" # custom, manufacture
+  ROM_TYPE : "custom" # custom, manufacture
 
   # Other env
   PYTHON_VERSION: "3" # Only 2(Ubuntu 22.04 and Ubuntu 20.04) or 3(Any OS Versions).
@@ -137,12 +137,12 @@ jobs:
           cd $GITHUB_WORKSPACE/device_kernel
 
           # enable CONFIG_COMPAT_VDSO and CONFIG_THUMB2_COMPAT_VDSO
-          # echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
+          echo "CONFIG_LOCALVERSION_AUTO=y" >> ./arch/${{ env.KERNEL_ARCH }}/configs/${{ env.DEFCONFIG_NAME }}
           
           # sed -i 's/-valeryn/-super.kernel/g' localversion
           # sed -i 's/-cip131//g' localversion-cip
           # sed -i 's/-st15//g' localversion-st
-          # echo "Localversion string has been replaced."
+          echo "Localversion string has been replaced."
                     
       - name: 🛡 Patch Kernel of VPNHide
         uses: ./.github/workflows/patch-vpnhide
